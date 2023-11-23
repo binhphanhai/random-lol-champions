@@ -145,7 +145,10 @@ function App() {
                   >
                     {teams[team].map((champion) => (
                       <Card
-                        style={{ width: 140, height: 180 }}
+                        style={{
+                          width: 140,
+                          height: 162,
+                        }}
                         bodyStyle={{ padding: 0 }}
                       >
                         <img
@@ -158,10 +161,18 @@ function App() {
                             borderTopLeftRadius: 8,
                             borderTopRightRadius: 8,
                             objectFit: "cover",
+                            verticalAlign: "middle",
                           }}
                         />
                         <div
-                          style={{ textAlign: "center", fontWeight: "bold" }}
+                          style={{
+                            textAlign: "center",
+                            fontWeight: "bold",
+                            color: "white",
+                            backgroundColor: "#182339",
+                            borderBottomLeftRadius: 8,
+                            borderBottomRightRadius: 8,
+                          }}
                         >
                           {champion}
                         </div>
