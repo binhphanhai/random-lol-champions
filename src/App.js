@@ -4,6 +4,7 @@ import { Card, Form, InputNumber, Select, Button, message } from "antd";
 import { CHAMPIONS, CHAMPION_IMAGES } from "./data";
 import { useCallback, useState } from "react";
 import { CopyOutlined } from "@ant-design/icons";
+import useCheckMobileScreen from "./useCheckMobileScreen";
 
 const options = CHAMPIONS.map((name) => ({ label: name, value: name }));
 
@@ -31,6 +32,8 @@ function App() {
   const [championsQuantity, setChampionsQuantity] = useState(undefined);
   const [championsBonus, setChampionsBonus] = useState(0);
 
+  const isMobile = useCheckMobileScreen();
+
   const teams = [
     champions.slice(0, championsQuantity),
     champions.slice(championsQuantity, championsQuantity * 2 + championsBonus),
@@ -49,6 +52,19 @@ function App() {
     navigator.clipboard.writeText(teams[team].join(", "));
     message.success("Copied!");
   };
+
+  if (isMobile)
+    return (
+      <div className="app">
+        <nav className="app-header">
+          <img src={logo} className="app-logo" alt="logo" />
+          <div>Random LoL Champions</div>
+        </nav>
+        <div className="main" style={{ fontSize: 24 }}>
+          Support on Desktop only
+        </div>
+      </div>
+    );
 
   return (
     <div className="app">
