@@ -29,16 +29,18 @@ function App() {
 
   const [champions, setChampions] = useState([]);
   const [championsQuantity, setChampionsQuantity] = useState(undefined);
+  const [championsBonus, setChampionsBonus] = useState(0);
 
   const teams = [
     champions.slice(0, championsQuantity),
-    champions.slice(championsQuantity, championsQuantity * 2 + bonus),
+    champions.slice(championsQuantity, championsQuantity * 2 + championsBonus),
   ];
 
   const onRandom = useCallback(
     (values) => {
       setChampions(random(quantity * 2 + bonus, values.banned || []));
       setChampionsQuantity(quantity);
+      setChampionsBonus(bonus);
     },
     [bonus, quantity]
   );
@@ -89,6 +91,8 @@ function App() {
               onClick={() => {
                 form.resetFields();
                 setChampionsQuantity(undefined);
+                setChampions([]);
+                setChampionsBonus(0);
               }}
               style={{ marginLeft: 12 }}
             >
@@ -99,100 +103,57 @@ function App() {
         <Card style={{ width: "90%", maxWidth: "1400px", flexGrow: 1 }}>
           {championsQuantity !== undefined && (
             <div>
-              <div>
-                <div>
-                  <span
+              {[0, 1].map((team) => (
+                <div style={{ paddingTop: 20, paddingBottom: 20 }}>
+                  <div>
+                    <span
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 24,
+                      }}
+                    >
+                      Team {team + 1}{" "}
+                    </span>
+                    <CopyOutlined
+                      style={{ fontSize: 20, cursor: "pointer" }}
+                      onClick={copyChampions.bind(this, team)}
+                    />
+                  </div>
+                  <div
                     style={{
-                      fontWeight: "bold",
-                      fontSize: 24,
+                      display: "flex",
+                      gap: 12,
+                      flexWrap: "wrap",
+                      justifyContent: "space-between",
                     }}
                   >
-                    Team 1{" "}
-                  </span>
-                  <CopyOutlined
-                    style={{ fontSize: 20, cursor: "pointer" }}
-                    onClick={copyChampions.bind(this, 0)}
-                  />
+                    {teams[team].map((champion) => (
+                      <Card
+                        style={{ width: 140, height: 180 }}
+                        bodyStyle={{ padding: 0 }}
+                      >
+                        <img
+                          width={138}
+                          height={138}
+                          src={CHAMPION_IMAGES[champion]}
+                          alt={champion}
+                          key={champion}
+                          style={{
+                            borderTopLeftRadius: 8,
+                            borderTopRightRadius: 8,
+                            objectFit: "cover",
+                          }}
+                        />
+                        <div
+                          style={{ textAlign: "center", fontWeight: "bold" }}
+                        >
+                          {champion}
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: 12,
-                    flexWrap: "wrap",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  {teams[0].map((champion) => (
-                    <Card
-                      style={{ width: 140, height: 180 }}
-                      bodyStyle={{ padding: 0 }}
-                    >
-                      <img
-                        width={138}
-                        height={138}
-                        src={CHAMPION_IMAGES[champion]}
-                        alt={champion}
-                        key={champion}
-                        style={{
-                          borderTopLeftRadius: 8,
-                          borderTopRightRadius: 8,
-                          objectFit: "cover",
-                        }}
-                      />
-                      <div style={{ textAlign: "center", fontWeight: "bold" }}>
-                        {champion}
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-              <div style={{ marginTop: 40 }}>
-                <div>
-                  <span
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: 24,
-                    }}
-                  >
-                    Team 2{" "}
-                  </span>
-                  <CopyOutlined
-                    style={{ fontSize: 20, cursor: "pointer" }}
-                    onClick={copyChampions.bind(this, 1)}
-                  />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: 12,
-                    flexWrap: "wrap",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  {teams[1].map((champion) => (
-                    <Card
-                      style={{ width: 140, height: 180 }}
-                      bodyStyle={{ padding: 0 }}
-                    >
-                      <img
-                        width={138}
-                        height={138}
-                        src={CHAMPION_IMAGES[champion]}
-                        alt={champion}
-                        key={champion}
-                        style={{
-                          borderTopLeftRadius: 8,
-                          borderTopRightRadius: 8,
-                          objectFit: "cover",
-                        }}
-                      />
-                      <div style={{ textAlign: "center", fontWeight: "bold" }}>
-                        {champion}
-                      </div>
-                    </Card>
-                  ))}
-                </div>
-              </div>
+              ))}
             </div>
           )}
         </Card>
