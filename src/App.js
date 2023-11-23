@@ -81,7 +81,20 @@ function App() {
             <Form.Item label="Weak team bonus" name="bonus">
               <InputNumber placeholder="Exp: 2" min={0} max={20} />
             </Form.Item>
-            <Form.Item label="Banned Champions" name="banned">
+            <Form.Item
+              label="Banned Champions"
+              name="banned"
+              rules={[
+                {
+                  validator: (_, value) =>
+                    new Promise((resolve, reject) => {
+                      if (value === undefined || value.length <= 20)
+                        resolve(true);
+                      reject(new Error("Maximum 20 banned champions"));
+                    }),
+                },
+              ]}
+            >
               <Select
                 mode="multiple"
                 allowClear
