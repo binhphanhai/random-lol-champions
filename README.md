@@ -1,1 +1,2 @@
-deploy on: TO DO
+- Deploy on: https://binhphanhai.github.io/random-lol-champions
+- Please free to use
