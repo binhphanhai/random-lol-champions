@@ -73,7 +73,7 @@ function App() {
         <div>Random LoL Champions</div>
       </nav>
       <div className="main">
-        <Card style={{ width: "90%", maxWidth: "1400px" }}>
+        <Card style={{ width: "90%", maxWidth: "1180px" }}>
           <Form layout="inline" onFinish={onRandom} form={form}>
             <Form.Item label="Quantity of Champions" name="quantity">
               <InputNumber placeholder="Exp: 10" min={5} max={40} />
@@ -129,7 +129,7 @@ function App() {
             </Button>
           </Form>
         </Card>
-        <Card style={{ width: "90%", maxWidth: "1400px", flexGrow: 1 }}>
+        <Card style={{ width: "90%", maxWidth: "1180px", flexGrow: 1 }}>
           {championsQuantity !== undefined && (
             <div>
               {[0, 1].map((team) => (
