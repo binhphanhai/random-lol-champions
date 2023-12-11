@@ -77,6 +77,7 @@ export const CHAMPION_IMAGES = {
     "https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blteb9ce5304ec48e19/64e66ee369d0a3935bf5068a/RiotX_ChampionList_hecarim_v2.jpg",
   Heimerdinger:
     "https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/bltd30d85446d154070/5db05fc57d28b76cfe4397ef/RiotX_ChampionList_heimerdinger.jpg",
+  Hwei: "https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/bltc7b700627f2bb3c0/65691deb7c56dd1bd9a61c97/RiotX_ChampionList_hwei_v2.jpg",
   Illaoi:
     "https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/bltc44e90a5547120a2/5db05fc5347d1c6baa57be2b/RiotX_ChampionList_illaoi.jpg",
   Irelia:
