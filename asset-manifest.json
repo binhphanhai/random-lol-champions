@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/random-lol-champions/static/css/main.6a81c9ce.css",
-    "main.js": "/random-lol-champions/static/js/main.909ede63.js",
+    "main.js": "/random-lol-champions/static/js/main.c5e717d6.js",
     "static/js/787.9b942a76.chunk.js": "/random-lol-champions/static/js/787.9b942a76.chunk.js",
     "static/media/logo.png": "/random-lol-champions/static/media/logo.9c2f3422b883579a7b7b.png",
     "index.html": "/random-lol-champions/index.html",
     "main.6a81c9ce.css.map": "/random-lol-champions/static/css/main.6a81c9ce.css.map",
-    "main.909ede63.js.map": "/random-lol-champions/static/js/main.909ede63.js.map",
+    "main.c5e717d6.js.map": "/random-lol-champions/static/js/main.c5e717d6.js.map",
     "787.9b942a76.chunk.js.map": "/random-lol-champions/static/js/787.9b942a76.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6a81c9ce.css",
-    "static/js/main.909ede63.js"
+    "static/js/main.c5e717d6.js"
   ]
 }
