@@ -218,6 +218,7 @@ export const CHAMPION_IMAGES = {
     "https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/bltbe8ea8bfd98ec1f3/64e68c98ffe8ee4e4c3e7707/RiotX_ChampionList_sivir_v2.jpg",
   Skarner:
     "https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt842a8149ba8b7a3d/5db06003bd24496c390ae4f6/RiotX_ChampionList_skarner.jpg",
+  Smolder: "https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/bltb0f1a69639b0abdf/65b85c8e24ea490a81de5f8f/RiotX_ChampionList_smolder_v2.jpg",
   Sona: "https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt4810827f74fc21b9/5db06003347d1c6baa57be49/RiotX_ChampionList_sona.jpg",
   Soraka:
     "https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt2141839fdc483592/5db06003e9effa6ba5295fad/RiotX_ChampionList_soraka.jpg",
