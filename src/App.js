@@ -1,25 +1,23 @@
 import logo from "./logo.png";
+import classesImage from "./classes.png";
 import "./App.css";
 import { Card, Form, InputNumber, Select, Button, message, Switch } from "antd";
-import { CHAMPIONS, CHAMPION_IMAGES } from "./data";
+import { CHAMPIONS, CHAMPION_IMAGES, CHAMPION_ROLE_MAP } from "./data";
 import { useCallback, useMemo, useState } from "react";
 import { CopyOutlined } from "@ant-design/icons";
 import useCheckMobileScreen from "./useCheckMobileScreen";
+import { random, halfRandom } from "./utils";
 
 const options = CHAMPIONS.map((name) => ({ label: name, value: name }));
 
-const random = (n, ignoredList) => {
-  const rs = [];
-  for (let i = 0; i < n; i++) {
-    const item = CHAMPIONS[Math.floor(Math.random() * CHAMPIONS.length)];
-    if (rs.includes(item) || ignoredList.includes(item)) {
-      i--;
-    } else {
-      rs.push(item);
-    }
-  }
-  return rs;
-};
+const positionMap = [
+  "0 100%",
+  "0 0",
+  "100% 0",
+  "100% 100%",
+  "50% 100%",
+  "50% 0",
+];
 
 function App() {
   const [form] = Form.useForm();
@@ -50,7 +48,12 @@ function App() {
 
   const onRandom = useCallback(
     (values) => {
-      setChampions(random(quantity * team + bonus, values.banned || []));
+      const { banned = [], optimized } = values;
+      setChampions(
+        optimized
+          ? halfRandom(quantity, banned, bonus)
+          : random(quantity * team + bonus, banned)
+      );
       setChampionsQuantity(quantity);
       setChampionsBonus(bonus);
       setNumberOfTeams(team);
@@ -83,13 +86,13 @@ function App() {
         <div>Random LoL Champions</div>
       </nav>
       <div className="main">
-        <Card style={{ width: "90%", maxWidth: "1280px" }}>
+        <Card style={{ width: "90%", maxWidth: 1280 }}>
           <Form layout="inline" onFinish={onRandom} form={form}>
             <Form.Item name="mode" valuePropName="checked">
               <Switch checkedChildren="Teams" unCheckedChildren="Default" />
             </Form.Item>
             <Form.Item label="Quantity of Champions" name="quantity">
-              <InputNumber placeholder="Exp: 10" min={5} max={20} />
+              <InputNumber placeholder="Exp: 10" min={6} max={20} />
             </Form.Item>
             {isMultipleTeam ? (
               <Form.Item
@@ -100,13 +103,21 @@ function App() {
                 <InputNumber placeholder="Exp: 2" min={2} max={8} />
               </Form.Item>
             ) : (
-              <Form.Item
-                label="Weak team bonus"
-                name="bonus"
-                style={{ width: 220 }}
-              >
-                <InputNumber placeholder="Exp: 2" min={0} max={20} />
-              </Form.Item>
+              <>
+                <Form.Item
+                  label="Weak team bonus"
+                  name="bonus"
+                  style={{ width: 220 }}
+                >
+                  <InputNumber placeholder="Exp: 2" min={0} max={20} />
+                </Form.Item>
+                <Form.Item name="optimized" valuePropName="checked">
+                  <Switch
+                    checkedChildren="Half Random"
+                    unCheckedChildren="Full Random"
+                  />
+                </Form.Item>
+              </>
             )}
 
             <Form.Item
@@ -126,7 +137,7 @@ function App() {
               <Select
                 mode="multiple"
                 allowClear
-                style={{ width: "300px" }}
+                style={{ width: isMultipleTeam ? 302 : 180 }}
                 placeholder="Banned"
                 options={options}
                 maxTagCount={2}
@@ -138,7 +149,7 @@ function App() {
               disabled={
                 quantity === undefined ||
                 Number.isNaN(quantity) ||
-                quantity < 5 ||
+                quantity < 6 ||
                 quantity > 20
               }
             >
@@ -158,12 +169,15 @@ function App() {
             </Button>
           </Form>
         </Card>
-        <Card style={{ width: "90%", maxWidth: "1280px", flexGrow: 1 }}>
+        <Card style={{ width: "90%", maxWidth: 1280, flexGrow: 1 }}>
           {championsQuantity !== undefined && (
             <div>
               {Array.from({ length: numberOfTeams }, (_, index) => index).map(
                 (t) => (
-                  <div style={{ paddingTop: 20, paddingBottom: 20 }}>
+                  <div
+                    style={{ paddingTop: 20, paddingBottom: 20 }}
+                    key={`team-${t}`}
+                  >
                     <div>
                       <span
                         style={{
@@ -192,7 +206,12 @@ function App() {
                             width: 140,
                             height: 162,
                           }}
-                          bodyStyle={{ padding: 0 }}
+                          bodyStyle={{
+                            padding: 0,
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                          key={champion}
                         >
                           <img
                             width={138}
@@ -207,6 +226,30 @@ function App() {
                               verticalAlign: "middle",
                             }}
                           />
+                          <div
+                            style={{
+                              position: "absolute",
+                              bottom: 24,
+                              display: "flex",
+                              width: "100%",
+                              justifyContent: "center",
+                              gap: 8,
+                            }}
+                          >
+                            {CHAMPION_ROLE_MAP[champion].map((role) => (
+                              <div
+                                style={{
+                                  backgroundImage: `url(${classesImage})`,
+                                  width: 40,
+                                  height: 40,
+                                  backgroundSize: "300% 200%",
+                                  backgroundRepeat: "no-repeat",
+                                  backgroundPosition: positionMap[role],
+                                  borderRadius: 4,
+                                }}
+                              />
+                            ))}
+                          </div>
                           <div
                             style={{
                               textAlign: "center",
